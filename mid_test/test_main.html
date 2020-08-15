@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test_Main</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <form action="" method="POST">
+        search : <input type="text" name="keyword">
+    </form>
+    
+    <button class='sendQ'>검색</button>
+    <div class="result"></div>
+
+    <script>
+        document.querySelector('.sendQ').addEventListener('click', function() {
+            var inputdata = document.getElementsByTagName('input')[0].value;
+            console.log(inputdata)
+            sendAjax('http://localhost:3000/test_ajax', inputdata);
+        })
+
+        function sendAjax(url, data) {
+            var dataset = {'keyword': data};
+            console.log(dataset)
+            dataset = JSON.stringify(dataset);
+            console.log(dataset)
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST',url);
+            xhr.setRequestHeader('Content-Type', "application/json");
+            xhr.send(dataset);
+
+            // response를 받는 역할
+            // xhr.onreadystatechange 사용가능
+            xhr.addEventListener('load', function() {
+                var result = xhr.responseText;
+                result = JSON.parse(result);
+
+                console.log(result)
+
+                document.querySelector('.result').innerHTML = result.keyword;
+
+            });
+        }
+    </script>
+</body>
+</html>
