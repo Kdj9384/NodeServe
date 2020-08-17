@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join!</title>
     <style>
-        .messages{
-            color : yellow;
-            margin-bottom: 16px;
-        }
+      .messages {
+        color: black;
+        margin-bottom: 16px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Join my website</h1>
 
+    <section class="messages"><%= message %></section>
     <section class="messages">
-        <form action="/join" method="POST">
-            email: <input type="text"><br>
-            password: <input type="text"><br>
-            <input type="submit">
-        </form>
+      <form action="/join" method="POST">
+        email: <input type="text" name="email" /><br />
+        password: <input type="text" name="password" /><br />
+        <input type="submit" />
+      </form>
     </section>
 
-
     <!-- <%=  %> 사이에 객체의 키값이 들어간다.-->
-</body>
+  </body>
 </html>
