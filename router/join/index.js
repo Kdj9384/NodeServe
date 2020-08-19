@@ -25,6 +25,16 @@ router.get("/", function (req, res) {
   // res.sendFile(path.join(__dirname, "../../public/join.html"));
 });
 
+// serialize로 저장해 놨다가
+passport.serializeUser(function(user, done) {
+  console.log('passport session saved', user)
+  done(null, user)
+})
+// 요청이 올때 deserialize로 저장한 user객체를 사용하여 로드
+passport.deserializeUser(function (user, done) {
+  console.log('passport session get id ', user)
+  done(null,user)
+})
 // passport.use('local', new LocalStrategy({
 
 // }))
@@ -48,13 +58,13 @@ passport.use(
             console.log("existed user");
             return done(null, false, { message: "your email is already used" });
           } else {
-            var sql = { email: email, pw: password };
+            var sql = { email: email, password: password };
             var query = connection.query(
-              "insert into user set ?",
+              "insert into users set ?",
               sql,
               function (err, rows) {
                 if (err) throw err;
-                return done(null, { email: email, uid: rows.insertId });
+                return done(null, { email: email, uid: rows.insertId, password : password });
               }
             );
           }

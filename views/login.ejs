@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>email form</title>
+    <style>
+        .login_style {
+            text-align: center;
+        }
+        .login_style form {
+            box-sizing:  content-box;
+            align-content: flex-start;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="login_style">
+        <h1> Login Page</h1>
+        <!-- action:실행시 보낼 주소, method:보낼 방식, input:입력방식, name:키워드-->
+        <form action="email/email_post" method="post">
+            email: <input type="text" name="email"><br>
+            passwd: <input type="password" name="password">
+        </form>
+    
+        <button class="ajaxsend"> login </button>
+        <p class="message"><%=message%></p>
+    </div>
+
+
+    <script>
+        document.querySelector('.ajaxsend').addEventListener('click', function() {
+            var email_data = document.getElementsByName('email')[0].value;
+            var passwd_data = document.getElementsByName('password')[0].value;
+            var inputdata = {'email':email_data, 'password' : passwd_data};
+            sendAjax('http://localhost:3000/login', inputdata);
+        })
+
+        
+
+        function sendAjax(url, data) {
+            var send_data = JSON.stringify(data);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url);
+            xhr.setRequestHeader('Content-Type', "application/json");
+            xhr.send(send_data);
+
+            xhr.addEventListener('load', function() {
+                var results = xhr.responseText;
+                results = JSON.parse(results);
+                 // result가 있다 -> 회원가입이 되어있다. -> 메인페이지
+                if (results.email) window.location.href = '/main';
+                // result가 없다. -> 회원가입 필요 -> 조인페이지
+                else window.location.href = '/join';
+                // 응답으로 온 객체는 2가지 속성을 가진다.
+                // 1. result, 2.email 이 두가지에 접근할 수 있다.
+            });
+        }
+    </script>
+    
+
+</body>
+</html>

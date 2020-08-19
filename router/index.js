@@ -3,13 +3,17 @@ var express = require("express");
 var router = express.Router();
 var path = require("path");
 
-var main = require("./main.js"); // 상대경로
-var email = require("./email.js");
+var main = require("./main/main.js"); // 상대경로
+var email = require("./email/email.js");
 var join = require("./join/index");
+var login = require("./login/index.js");
+var logout = require("./logout/index.js");
 
 router.use("/main", main);
 router.use("/email", email);
 router.use("/join", join);
+router.use("/login", login);
+router.use("/logout", logout)
 // url이 /main인 경우 main라우터를 사용하겠다.
 // main라우터는 /router/main이다.
 
