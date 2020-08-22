@@ -8,12 +8,14 @@ var email = require("./email/email.js");
 var join = require("./join/index");
 var login = require("./login/index.js");
 var logout = require("./logout/index.js");
+var movie = require("./movie/index.js");
 
 router.use("/main", main);
 router.use("/email", email);
 router.use("/join", join);
 router.use("/login", login);
 router.use("/logout", logout)
+router.use("/movie", movie)
 // url이 /main인 경우 main라우터를 사용하겠다.
 // main라우터는 /router/main이다.
 
